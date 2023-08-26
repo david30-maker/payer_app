@@ -5,9 +5,23 @@ class PlayersController < ApplicationController
     def new
         # @player = Player.new
     end
-    
-    # def show
-    #     @player = Player.find_by(id: params[:id])
-    #     @player_stats = @player.player_stats
-    # end
+
+    def create
+        player = Player.new(player_params)
+        if player.save
+            redirect_to "/players"
+        else
+            flash[:errors] = player.errors.full_messages
+            redirect_to "/players/new"
+        end
+    end
+
+    def show
+        @player = Player.find(params[:id])
+        # @teams = Team.all
+    end
+    private
+        def player_params
+            params.require(:player).permit(:first_name, :last_name)
+        end
 end
