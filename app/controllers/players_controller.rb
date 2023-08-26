@@ -18,7 +18,6 @@ class PlayersController < ApplicationController
 
     def show
         @player = Player.find(params[:id])
-        # @teams = Team.all
     end
     private
         def player_params
